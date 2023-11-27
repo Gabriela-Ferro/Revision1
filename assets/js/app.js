@@ -1,16 +1,24 @@
-const baseEndpoint = 'https://api.github.com';
-const usersEndpoint = `${baseEndpoint}/users`;
-const $n = document.querySelector('name');
-const $b = document.querySelector('#blog');
-const $l = document.querySelector('.location');
+const baseEndpoint = 'https://api.github.com/users'; //agregue users
+// const usersEndpoint = `${baseEndpoint}/users`;  no tiene sentido
+const name1 = document.querySelector('.name'); // anadi un . para hacer referencia al atributo
+//cambie el nombre de variables para que fueran legibles
+const blog1 = document.querySelector('#blog');
+const location1 = document.querySelector('.location');
 
-function displayUser(username) {
-  $n.textContent = 'cargando...';
+async function displayUser(username) { // agregue async ppara que funcione con await
+try{ //puse try y catch
+  name1.textContent = 'cargando...'; 
   const response = await fetch(`${usersEndpoint}/${username}`);
   console.log(data);
-  $n.textContent = '${data.name}';
-  $b.textContent = '${data.blog}';
-  $l.textContent = '${data.location}';
+  name1.textContent = `${data.name}`;
+  blog1.textContent = `${data.blog}`;
+  location1.textContent = `${data.location}`; // cambie las comillas por bactips
+} catch { (err) {
+  handleError(err);       
+}
+
+
+}
 }
 
 function handleError(err) {
@@ -19,4 +27,4 @@ function handleError(err) {
   n.textContent = `Algo salió mal: ${err}`
 }
 
-displayUser('stolinski').catch(handleError);
+displayUser('stolinski').catch(handleError); 
